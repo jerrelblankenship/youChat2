@@ -24,7 +24,7 @@ const Greeting = ({ navigation }: NavigatingProperties) => {
             <View style={{ marginTop: 125, paddingHorizontal: 5 }}>
                 <Heading content="Welcome to YouChat2" />
             </View>
-            <View style={{ marginVertical: 15 }}>
+            <View style={{ marginVertical: 15, width: '80%' }}>
                 <TouchableOpacity
                     style={styles.inputTop}
                     onPress={() => navigation.navigate('Login')}

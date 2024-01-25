@@ -19,7 +19,7 @@ function LoginNavigator() {
                 <Stack.Screen
                     name="Signup"
                     component={Signup}
-                    options={{ headerShown: false }}
+                    options={{ headerShown: true }}
                 />
                 <Stack.Screen
                     name="Login"
