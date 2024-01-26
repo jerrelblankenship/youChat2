@@ -2,7 +2,7 @@
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { initializeApp, getApps } from 'firebase/app';
 import { Auth, getReactNativePersistence, initializeAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { Firestore, getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,7 +14,7 @@ const firebaseConfig = {
     appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
-let FIREBASE_APP, FIREBASE_AUTH: Auth, FIREBASE_DB;
+let FIREBASE_APP, FIREBASE_AUTH: Auth, FIREBASE_DB: Firestore;
 
 // Initialize Firebase only if it hasn't been initialized yet.
 if (!getApps().length) {
