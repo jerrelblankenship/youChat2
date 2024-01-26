@@ -56,10 +56,7 @@ const MainChat = ({ navigation }: NavigatingProperties) => {
                 async (querySnapshot) => {
                     const fetchedChannels = querySnapshot.docs.map(async (doc) => {
                         const channelInfo = doc.data();
-                        const lastMessage = channelInfo.lastMessage || {
-                            messageText: 'No messages yet',
-                            createdAt: new Date(),
-                        };
+                        const lastMessage = channelInfo.lastMessage;
                         const otherUserId = channelInfo.participants.find(
                             (p: string) => p !== currentUser.uid,
                         );
@@ -74,6 +71,7 @@ const MainChat = ({ navigation }: NavigatingProperties) => {
                     });
 
                     const channelData = await Promise.all(fetchedChannels);
+
                     setChannels(channelData);
                     setLoading(false);
                 },
@@ -120,19 +118,19 @@ const MainChat = ({ navigation }: NavigatingProperties) => {
 
 const getDisplayName = async (otherUserId: string) => {
     try {
-        const userDoc = await getDoc(doc(FIREBASE_DB, 'users', otherUserId))
+        const userDoc = await getDoc(doc(FIREBASE_DB, 'users', otherUserId));
 
         if (userDoc.exists()) {
-            const user = userDoc.data()
-            const displayName = user.firstname + ' ' + user.lastname
+            const user = userDoc.data();
+            const displayName = user.firstname + ' ' + user.lastname;
 
-            return displayName
+            return displayName;
         } else {
-            return "I Don't Know"
+            return "I Don't Know";
         }
     } catch (error) {
-        console.error('Error getting the recipient information: ', error)
-        return 'Error'
+        console.error('Error getting the recipient information: ', error);
+        return 'Error';
     }
 };
 
