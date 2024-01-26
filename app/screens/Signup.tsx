@@ -1,4 +1,5 @@
 import {
+    ActivityIndicator,
     SafeAreaView,
     StyleSheet,
     Text,
@@ -19,20 +20,24 @@ const Signup = ({ navigation }: NavigatingProperties) => {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [loading, setLoading] = useState(false);
 
-    const setupAccount = async() => {
-      const fbService = new FirebaseService();
-      const user: ChatUser = {email, firstName, lastName}
+    const setupAccount = async () => {
+        setLoading(true);
+        const fbService = new FirebaseService();
+        const user: ChatUser = { email, firstName, lastName };
 
-      const accountCreated: boolean = await fbService.createUserAccount(user, password);
-      console.log(accountCreated)
+        const accountCreated: boolean = await fbService.createUserAccount(user, password);
+        console.log(accountCreated);
 
-      if (accountCreated) {
-        alert('Your User Account has been created.');
-      } else {
-        alert('The Registration Attempt Failed: ' + email);
-      }
-    }
+        if (accountCreated) {
+            alert('Your User Account has been created.');
+        } else {
+            alert('The Registration Attempt Failed: ' + email);
+        }
+
+        setLoading(false);
+    };
 
     return (
         <SafeAreaView style={{ backgroundColor: 'white', paddingHorizontal: 7 }}>
@@ -75,16 +80,21 @@ const Signup = ({ navigation }: NavigatingProperties) => {
                     placeholderTextColor={colors.textDark}
                     value={password}
                     style={styles.input}
+                    autoCapitalize="none"
                 />
             </View>
             <View style={{ marginTop: 15, paddingTop: 20 }}>
-                <CustomButton
-                    navigation={navigation}
-                    bgColor={colors.primary}
-                    textColor={colors.textWhite}
-                    content="Sign Up"
-                    onPress={setupAccount}
-                />
+                {loading ? (
+                    <ActivityIndicator size={'large'} color={'#0000ff'} />
+                ) : (
+                    <CustomButton
+                        navigation={navigation}
+                        bgColor={colors.primary}
+                        textColor={colors.textWhite}
+                        content="Sign Up"
+                        onPress={setupAccount}
+                    />
+                )}
             </View>
             <View style={{ marginTop: 5, alignItems: 'center' }}>
                 <></>
