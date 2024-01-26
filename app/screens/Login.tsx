@@ -24,10 +24,6 @@ const Login = ({ navigation }: NavigatingProperties) => {
         const fbService = new FirebaseService();
         const response: boolean = await fbService.loginUser(email, password);
 
-        if (!response) {
-            alert('There was an issue logging into your account. Please try again.');
-        }
-
         setLoading(false);
     };
 
